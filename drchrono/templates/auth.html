@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h2>Authorized</h2>
+    {% for row in response.results %}
+    <p>{{ row.first_name }} {{ row.last_name }}: {{ row.date_of_birth }}</p>
+    {% endfor %}
+    <!-- p>response = {{ response }}</p>
+    <p>row = {{ row }}</p>
+    <p>token = {{ token }}</p -->
+  </body>
+</html>
