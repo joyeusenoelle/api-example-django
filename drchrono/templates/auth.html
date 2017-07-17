@@ -1,36 +1,63 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DrChrono Patient Birthday Emails!</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  </head>
   <body>
-    <h2>Authorized</h2>
+    <div class="container">
+    <h2>Email status</h2>
     {% if response %}
+      <table class="table">
+        <tr>
+          <th>Name</th>
+          <th>DOB</th>
+          <th>Email</th>
+          <th>Message result</th>
+        </tr>
       {% for row in response %}
-      <p>
-        <strong>{{ row.first_name }} {{ row.last_name }}</strong>
-        {% if row.date_of_birth %}
-          <br>{{ row.date_of_birth }}
-        {% else %}
-          <br><em>No date of birth listed</em>
-        {% endif %}
-        {% if row.email %}
-          <br>{{ row.email }}
-        {% else %}
-          <br><em>No email listed</em>
-        {% endif %}
-        {% if row.message %}
-          {% if row.message.code == -1 %}
-            <br><span style="color: #ff0000;">{{ row.message.message }}
-          {% else %}
-            <br>{{ row.message.message }}
-          {% endif %}
-        {% else %}
-          <br><em>No email sent</em>
-        {% endif %}
-      </p>
+        <tr>
+          <td>{{ row.first_name }} {{ row.last_name }}</td>
+          <td>
+            {% if row.date_of_birth %}
+              {{ row.date_of_birth }}
+            {% else %}
+              <em>None listed</em>
+            {% endif %}
+          </td>
+          <td>
+            {% if row.email %}
+              {{ row.email }}
+            {% else %}
+              <em>No email listed</em>
+            {% endif %}
+          </td>
+            {% if row.message %}
+              {% if row.message.code == -1 %}
+                <td class="alert alert-danger">{{ row.message.message }}</td>
+              {% elif row.message.code == 0 %}
+                <td class="alert alert-success">{{ row.message.message }}</td>
+              {% else %}
+                <td class="alert alert-warning">{{ row.message.message }}</td>
+            {% endif %}
+            {% else %}
+              <td class="alert alert-warning"><em>No email sent</em></td>
+            {% endif %}
+          </td>
+      </tr>
       {% endfor %}
+    </table>
     {% else %}
       <p>
         No patients born on this date.
       </p>
     {% endif %}
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   </body>
 </html>

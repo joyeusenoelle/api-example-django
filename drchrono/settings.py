@@ -114,5 +114,5 @@ STATIC_URL = '/static/'
 
 SOCIAL_AUTH_DRCHRONO_KEY = 'av8Q2d3vSQ9LqxMEFuuwvC7Ttnkh2xsX5DhupA8R'
 SOCIAL_AUTH_DRCHRONO_SECRET = 'NqtV6OQUOae1MIBxAsWlpv2cm1zLV7sL8dqwTtAVscjhnLLQelnKhGoeBnIu9I3DYxkBHFuDjRu89exmyLHbKIVNyDNW1bilDOEoj7InQP8NGqskvY2UTwDt2xNa5kXf'
-SOCIAL_AUTH_DRCHRONO_SCOPE = ['patients:read']
+SOCIAL_AUTH_DRCHRONO_SCOPE = ['patients:read', 'doctors:read']
 LOGIN_REDIRECT_URI = 'http://127.0.0.1:8000/complete/drchrono'
