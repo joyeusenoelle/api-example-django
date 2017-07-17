@@ -44,12 +44,12 @@ def fetch_drchrono_userdata(dob = None):
     doc_names = {}
     doc_emails = {}
     for doc in doctors:
-        doc_names[doc['id']] = doc['last_name']
-        doc_emails[doc['id']] = doc['email']
+        doc_names[doc['id']] = {'last_name': doc['last_name'],
+                                'email': doc['email']}
     for line in results:
         d_id = line['doctor']
-        line['doctor'] = doc_names[d_id]
-        line['doc_email'] = doc_emails[d_id]
+        line['doctor'] = doc_names[d_id]['last_name']
+        line['doc_email'] = doc_emails[d_id]['email']
     return response
 
 def send_birthday_mail(patient_fname, patient_email, practice_email, doctor_name=None):
