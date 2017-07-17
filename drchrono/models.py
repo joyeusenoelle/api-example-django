@@ -27,7 +27,13 @@ def fetch_drchrono_userdata(dob = None):
     r = requests.get(URI, headers={
         'Authorization': 'Bearer %s' % token,
     }).json()
-    return r
+    response = r['results']
+    while r['next'] != None:
+        r = requests.get(r['next'], headers={
+            'Authorization': 'Bearer %s' % token,
+        }).json()
+        response.append(r['results'])
+    return response
 
 def send_birthday_mail(patient_fname, patient_email, practice_name, practice_email, doctor_name=None):
     """
@@ -43,7 +49,7 @@ def send_birthday_mail(patient_fname, patient_email, practice_name, practice_ema
         text_start = "A"
     else:
         text_start = "Dr. {} and a".format(doctor_name)
-    text_full = "{}ll of us here at {} want to wish you a very happy birthday and many happy returns of the day!".format(text_start,practice_text)
+    text_full = "{}ll of us here at {} want to wish you a very happy birthday and many happy returns of the day!".format(text_start,practice_name)
     email_body = "Dear {},\n\n{}\n\nSee you soon!\n\n{}".format(
         patient_fname,
         text_full,
@@ -57,6 +63,7 @@ def send_birthday_mail(patient_fname, patient_email, practice_name, practice_ema
             [patient_email],
             fail_silently=False,
         )
-        return "Mail sent successfully."
-    except SMTPException as e:
-        return "Could not send mail ({}): {}".format(e.errno, e.strerror)
+        return {'code':0, 'message': "Mail sent successfully."}
+    except Exception as e:
+        msg = "Could not send mail ({}): {}".format(e.errno, e.strerror)
+        return {'code':-1, 'message': msg }

@@ -2,20 +2,35 @@
 <html>
   <body>
     <h2>Authorized</h2>
-    {% for row in response.results %}
-    <p>
-      <strong>{{ row.first_name }} {{ row.last_name }}</strong>
-      {% if row.date_of_birth %}
-        <br>{{ row.date_of_birth }}
-      {% else %}
-        <br><em>No date of birth listed</em>
-      {% endif %}
-      {% if row.email %}
-        <br>{{ row.email }}
-      {% else %}
-        <br><em>No email listed</em>
-      {% endif %}
-    </p>
-    {% endfor %}
+    {% if response %}
+      {% for row in response %}
+      <p>
+        <strong>{{ row.first_name }} {{ row.last_name }}</strong>
+        {% if row.date_of_birth %}
+          <br>{{ row.date_of_birth }}
+        {% else %}
+          <br><em>No date of birth listed</em>
+        {% endif %}
+        {% if row.email %}
+          <br>{{ row.email }}
+        {% else %}
+          <br><em>No email listed</em>
+        {% endif %}
+        {% if row.message %}
+          {% if row.message.code == -1 %}
+            <br><span style="color: #ff0000;">{{ row.message.message }}
+          {% else %}
+            <br>{{ row.message.message }}
+          {% endif %}
+        {% else %}
+          <br><em>No email sent</em>
+        {% endif %}
+      </p>
+      {% endfor %}
+    {% else %}
+      <p>
+        No patients born on this date.
+      </p>
+    {% endif %}
   </body>
 </html>
