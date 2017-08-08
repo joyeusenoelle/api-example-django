@@ -18,6 +18,9 @@ Selecting the doctor's name and email is not as clever as I'd like, but it gets 
 - Add columns to patient data indicating when email has been sent, so nobody gets an email twice
 - Reset those columns on 1/1 of each year
 
+### One more note
+Matias is no longer hosting Python Social Auth at his website; you might want to redirect the link below to [his Github page](https://github.com/python-social-auth) or [the PSA documentation](http://python-social-auth.readthedocs.org/).
+
 ## Original readme below
 
 ### Requirements
